@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:12:27 by astanton          #+#    #+#             */
-/*   Updated: 2019/12/07 22:28:11 by astanton         ###   ########.fr       */
+/*   Updated: 2019/12/08 00:49:41 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	check_file(char *name_file)
 {
 	int	fd;
 
-	if (ft_strcmp(ft_strchr(name_file, '.'), ".cor"))
+	if (ft_strcmp(ft_strrchr(name_file, '.'), ".cor"))
 	{
 		write(1, "\x1b[35m", 6);
 		write(1, "\nWrong type of file.\n", 22);
