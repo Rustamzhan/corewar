@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 12:00:46 by astanton          #+#    #+#             */
-/*   Updated: 2019/12/03 19:19:19 by astanton         ###   ########.fr       */
+/*   Updated: 2019/12/08 00:34:37 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,19 @@
 
 int	main(int ac, char **av)
 {
+	t_game		game;
+	t_player	*players;
+
 	verification_of_incoming_data(ac, av);
+	game = init_game();
+	players = init_players(ac, av);
+	debug(players, 2);
+
+	free(game.field);
+	free(players->code);
+	free(players->comment);
+	free(players->name);
+	//init_palyers(ac, av);
 	
 	// buff = malloc(1000);
 	// nbr = 0;

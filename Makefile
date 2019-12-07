@@ -6,23 +6,32 @@
 #    By: astanton <astanton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/03 16:12:01 by astanton          #+#    #+#              #
-#    Updated: 2019/12/03 19:29:02 by astanton         ###   ########.fr        #
+#    Updated: 2019/12/08 00:41:57 by astanton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 
 SRCS = main.c\
-		verification.c\
-		verification_binary_files.c\
-		messages.c
+		./validation/verification.c\
+		./validation/verification_binary_files.c\
+		./init/init_battle_field.c\
+		./init/init_players.c\
+		./init/save_info_about_players.c\
+		messages.c\
+		debug.c
 
 OBJ =  main.o\
-		verification.o\
-		verification_binary_files.o\
-		messages.o
+		./validation/verification.o\
+		./validation/verification_binary_files.o\
+		./init/init_battle_field.o\
+		./init/init_players.o\
+		./init/save_info_about_players.o\
+		messages.o\
+		debug.o
 
 HDR = ./libft/includes/
+HDR1 = ./includes
 
 FLAG = -Wall -Wextra -Werror
 
@@ -34,8 +43,8 @@ lib:
 $(NAME): $(OBJ) ./libft/libft.a
 	gcc -o $(NAME) $(OBJ) -L ./libft -lft
 
-$(OBJ): %.o: %.c
-	gcc -g $(FLAG) -c -I $(HDR) -I ./srcs $< -o $@
+$(OBJ): %.o: %.c ./includes/vm.h ./includes/op.h
+	gcc -g $(FLAG) -c -I $(HDR) -I $(HDR1) $< -o $@
 
 clean:
 	make -C libft clean
