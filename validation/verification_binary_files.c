@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 19:21:05 by astanton          #+#    #+#             */
-/*   Updated: 2019/12/07 22:27:08 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/09 15:59:48 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ static void	check_magic(int fd, char *file)
 				| (cur_res & BYTE_3) >> 8 | (cur_res & BYTE_4) >> 24;
 	if (cur_res != COREWAR_EXEC_MAGIC)
 	{
-		write(1, "\x1b[35m", 6);
+		write(1, "\x1b[35m", 5);
 		write(1, "\nMagic_number is different from COREWAR_EXEC_MAGIC \
-in file : ", 62);
+in file : ", 61);
 		write(1, file, ft_strlen(file));
-		write(1, "\x1b[0m", 6);
+		write(1, "\x1b[0m", 4);
 		write(1, "\n", 1);
 		exit(3);
 	}
@@ -86,11 +86,11 @@ static void	check_binary(char *file)
 
 	if ((fd = open(file, O_RDONLY)) < 0)
 	{
-		write(1, "\x1b[35m", 6);
-		write(1, "\nCan't open next file : ", 25);
+		write(1, "\x1b[35m", 5);
+		write(1, "\nCan't open next file : ", 24);
 		write(1, file, ft_strlen(file));
 		write(1, "\n", 1);
-		write(1, "\x1b[0m", 6);
+		write(1, "\x1b[0m", 4);
 		exit(2);
 	}
 	check_magic(fd, file);
@@ -98,11 +98,11 @@ static void	check_binary(char *file)
 	check_exec_code(fd, file);
 	if (close(fd) != 0)
 	{
-		write(1, "\x1b[35m", 6);
-		write(1, "\nCan't close file : ", 21);
+		write(1, "\x1b[35m", 5);
+		write(1, "\nCan't close file : ", 20);
 		write(1, file, ft_strlen(file));
 		write(1, "\n", 1);
-		write(1, "\x1b[0m", 6);
+		write(1, "\x1b[0m", 4);
 		exit(2);
 	}
 }
@@ -113,8 +113,8 @@ void		check_binary_files(int *arg_types, char **av, int ac, int files)
 
 	if (files > MAX_PLAYERS || files == 0)
 	{
-		write(1, "\x1b[35m", 6);
-		write(1, "\nWrong amount of binary files.\n", 32);
+		write(1, "\x1b[35m", 5);
+		write(1, "\nToo many champions.\n", 21);
 		ft_print_usage_and_exit();
 	}
 	i = 0;

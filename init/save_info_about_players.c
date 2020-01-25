@@ -6,13 +6,13 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 22:41:47 by astanton          #+#    #+#             */
-/*   Updated: 2019/12/08 00:03:43 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:02:47 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-char	*save_name(int fd)
+char			*save_name(int fd)
 {
 	char	buff[PROG_NAME_LENGTH + 1];
 	char	*name;
@@ -24,15 +24,15 @@ char	*save_name(int fd)
 	name = (char *)malloc(sizeof(char) * (ft_strlen(buff) + 1));
 	if (!name)
 	{
-		write(1, "\x1b[35m", 6);
-		write(1, "\nMemory for name is not allocated.\n", 37);
-		write(1, "\x1b[0m", 6);
+		write(1, "\x1b[35m", 5);
+		write(1, "\nMemory for name is not allocated.\n", 35);
+		write(1, "\x1b[0m", 4);
 		exit(4);
 	}
 	return (ft_strcpy(name, buff));
 }
 
-char	*save_comment(int fd)
+char			*save_comment(int fd)
 {
 	char	buff[COMMENT_LENGTH + 1];
 	char	*comment;
@@ -43,15 +43,15 @@ char	*save_comment(int fd)
 	comment = (char *)malloc(sizeof(char) * (ft_strlen(buff) + 1));
 	if (!comment)
 	{
-		write(1, "\x1b[35m", 6);
-		write(1, "\nMemory for comment is not allocated.\n", 37);
-		write(1, "\x1b[0m", 6);
+		write(1, "\x1b[35m", 5);
+		write(1, "\nMemory for comment is not allocated.\n", 38);
+		write(1, "\x1b[0m", 4);
 		exit(4);
 	}
 	return (ft_strcpy(comment, buff));
 }
 
-int		save_size_of_code(int fd)
+int				save_size_of_code(int fd)
 {
 	int				ret;
 	unsigned char	buff[sizeof(COREWAR_EXEC_MAGIC) + 1];
@@ -79,9 +79,9 @@ unsigned char	*save_exec_code(int fd, int size_of_code)
 	code = (char *)malloc(sizeof(char) * size_of_code);
 	if (!code)
 	{
-		write(1, "\x1b[35m", 6);
-		write(1, "\nMemory for exec_code is not allocated.\n", 37);
-		write(1, "\x1b[0m", 6);
+		write(1, "\x1b[35m", 5);
+		write(1, "\nMemory for exec_code is not allocated.\n", 40);
+		write(1, "\x1b[0m", 4);
 		exit(4);
 	}
 	ret = read(fd, buff, size_of_code);

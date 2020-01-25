@@ -6,24 +6,38 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:43:40 by astanton          #+#    #+#             */
-/*   Updated: 2019/12/08 00:31:30 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/09 19:23:52 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static int		take_fd(char *file)
+static int		open_close_fd(char *file, int var, int close_fd)
 {
 	int	fd;
 
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
+	if (var == 1)
 	{
-		write(1, "\x1b[35m", 6);
-		write(1, "\nCan't open file, check filename, please.\n", 43);
-		ft_print_usage_and_exit();
+		fd = open(file, O_RDONLY);
+		if (fd < 0)
+		{
+			write(1, "\x1b[35m", 6);
+			write(1, "\nCan't open file, check filename, please.\n", 43);
+			ft_print_usage_and_exit();
+		}
+		return (fd);
 	}
-	return (fd);
+	else
+	{
+		if (close(close_fd))
+		{
+			write(1, "\x1b[35m", 6);
+			write(1, "\nCan't close file.\n", 20);
+			write(1, "\x1b[0m", 6);
+			exit(2);
+		}
+	}
+	return (-1);
 }
 
 static t_player	*fill_player(char *file_name, int id)
@@ -31,7 +45,7 @@ static t_player	*fill_player(char *file_name, int id)
 	t_player	*player;
 	int			fd;
 
-	fd = take_fd(file_name);
+	fd = open_close_fd(file_name, 1, 0);
 	player = (t_player*)malloc(sizeof(t_player));
 	if (!player)
 	{
@@ -46,6 +60,8 @@ static t_player	*fill_player(char *file_name, int id)
 	player->code = save_exec_code(fd, player->size_of_code);
 	player->player_id = id;
 	player->prev = NULL;
+	player->next = NULL;
+	open_close_fd(file_name, 2, fd);
 	return (player);
 }
 
@@ -53,12 +69,12 @@ static int		find_number(char check)
 {
 	int	i;
 
-	i = 4;
-	while (i > 0)
+	i = 1;
+	while (i <= MAX_PLAYERS)
 	{
 		if (!(check & (1 << i)))
 			return (i);
-		i--;
+		i++;
 	}
 	return (0);
 }
@@ -66,7 +82,6 @@ static int		find_number(char check)
 static void		refill_champs_id(t_player *players)
 {
 	char		check;
-	int			i;
 	int			n;
 	t_player	*tmp;
 
@@ -79,7 +94,6 @@ static void		refill_champs_id(t_player *players)
 		tmp = tmp->next;
 	}
 	tmp = players;
-	i = 0;
 	while (tmp)
 	{
 		if (!tmp->player_id)
@@ -99,23 +113,18 @@ t_player		*init_players(int ac, char **av)
 	int			i;
 	int			champ_id;
 
-	i = 0;
+	i = ac - 1;
 	players = NULL;
-	while (++i < ac)
+	while (i > 0 && ft_strcmp(av[i - 1], "-dump") && ft_strcmp(av[i], "-v"))
 	{
-		champ_id = 0;
-		if (i == 1 && !ft_strcmp(av[i], "-dump"))
-			i += 2;
-		if (!ft_strcmp(av[i], "-n"))
-		{
-			champ_id = ft_atoi(av[++i]);
-			i++;
-		}
+		champ_id = (i > 2 && !ft_strcmp(av[i - 2], "-n")) ?
+			ft_atoi(av[i - 1]) : 0;
 		tmp = fill_player(av[i], champ_id);
 		tmp->next = players;
-		if (players)
-			players->prev = tmp;
+		(players) ? players->prev = tmp : 0;
 		players = tmp;
+		i -= (i > 2 && (!ft_strcmp(av[i - 2], "-n")
+			|| !ft_strcmp(av[i - 2], "-dump"))) ? 3 : 1;
 	}
 	refill_champs_id(players);
 	return (players);
