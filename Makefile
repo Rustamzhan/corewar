@@ -6,7 +6,7 @@
 #    By: astanton <astanton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/03 16:12:01 by astanton          #+#    #+#              #
-#    Updated: 2020/01/10 17:48:43 by astanton         ###   ########.fr        #
+#    Updated: 2020/01/26 23:01:25 by astanton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ OBJ =  main.o\
 HDR = ./libft/includes/
 HDR1 = ./includes
 
-FLAG = -Wall -Wextra -Werror
+#FLAG = -Wall -Wextra -Werror
 
 all: lib $(NAME)
 

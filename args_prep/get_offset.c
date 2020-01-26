@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ld.c                                               :+:      :+:    :+:   */
+/*   get_offset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/25 16:29:06 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/26 22:10:01 by astanton         ###   ########.fr       */
+/*   Created: 2020/01/25 18:13:26 by astanton          #+#    #+#             */
+/*   Updated: 2020/01/26 23:31:35 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	ld(t_game *game, t_carriage *carriage)
+int	get_offset(int *args, int op_code)
 {
-	int *args_type;
+	int	offset;
+	int i;
 
-	args_type = decode_arg_byte(game->field[(carriage->position + 1) % MEM_SIZE], carriage->operation_code - 1);
-	carriage->offset = get_offset(args_type, carriage->operation_code - 1);
-	if (check_args(args_type, carriage->operation_code - 1))
+	offset = 1;
+	i = 0;
+	while (i < g_ops[op_code].num_of_args)
 	{
-		carriage->is_args_valid = 0;
-		return ;
+		if (args[i] == T_DIR)
+			offset += g_ops[op_code].dir_size;
+		else if (args[i] == T_REG)
+			offset += 1;
+		else
+			offset += 2;
+		i++;
 	}
-	get_args(args_type, game, carriage);
+	offset += g_ops[op_code].args_byte;
+	return (offset);
 }

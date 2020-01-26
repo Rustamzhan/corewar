@@ -6,13 +6,14 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 19:31:18 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/10 16:32:16 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:35:34 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static t_carriage	*create_carriage(){
+static t_carriage	*create_carriage(void)
+{
 	t_carriage	*carriage;
 
 	carriage = (t_carriage *)malloc(sizeof(t_carriage));
@@ -39,27 +40,27 @@ static int			find_step(t_player *players)
 		champs++;
 		tmp = tmp->next;
 	}
-	return (MEM_SIZE/champs);
+	return ((MEM_SIZE) / champs);
 }
 
 static void			fill_carriage(t_player *players, t_carriage *carriages,
 									unsigned int position)
 {
-		carriages->id = players->player_id;
-		carriages->carry = 0;
-		carriages->operation_code = 0;
-		carriages->last_live_cycle = 0;
-		carriages->cycles_till_exec = 0;
-		carriages->step = 0;
-		carriages->position = position;
-		ft_bzero(carriages->reg, REG_NUMBER);
-		carriages->reg[0] = -(players->player_id);
+	carriages->id = players->player_id;
+	carriages->carry = 0;
+	carriages->operation_code = 0;
+	carriages->last_live_cycle = 0;
+	carriages->cycles_till_exec = 0;
+	carriages->offset = 0;
+	carriages->position = position;
+	ft_bzero(carriages->reg, REG_NUMBER);
+	carriages->reg[0] = -(players->player_id);
 }
 
 t_carriage			*carriage_init(t_player *players)
 {
-	t_carriage	*carriages;
-	t_carriage	*tmp;
+	t_carriage		*carriages;
+	t_carriage		*tmp;
 	unsigned int	position;
 	unsigned int	step;
 

@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 15:25:54 by astanton          #+#    #+#             */
-/*   Updated: 2019/12/12 17:40:29 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:36:05 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ static int	find_size_of_champ_field(t_player *players)
 		champs++;
 		tmp = tmp->next;
 	}
-	return (MEM_SIZE/champs);
+	return ((MEM_SIZE) / champs);
 }
 
-void	load_exec_code_in_battle_field(t_game game, t_player *players)
+void		load_exec_code_in_battle_field(t_game game, t_player *players)
 {
 	t_player		*tmp;
 	unsigned char	*field;

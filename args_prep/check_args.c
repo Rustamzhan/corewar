@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ld.c                                               :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/25 16:29:06 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/26 22:10:01 by astanton         ###   ########.fr       */
+/*   Created: 2020/01/26 20:07:09 by astanton          #+#    #+#             */
+/*   Updated: 2020/01/26 21:41:30 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	ld(t_game *game, t_carriage *carriage)
+int	check_args(int *args, int op_code)
 {
-	int *args_type;
+	int	i;
 
-	args_type = decode_arg_byte(game->field[(carriage->position + 1) % MEM_SIZE], carriage->operation_code - 1);
-	carriage->offset = get_offset(args_type, carriage->operation_code - 1);
-	if (check_args(args_type, carriage->operation_code - 1))
+	i = 0;
+	while (i < g_ops[op_code].num_of_args)
 	{
-		carriage->is_args_valid = 0;
-		return ;
+		if (!(args[i] & (g_ops[op_code]).arg_types[i]))
+			return (1);
+		i++;
 	}
-	get_args(args_type, game, carriage);
+	return (0);
 }

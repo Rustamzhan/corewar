@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:35:00 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/10 20:50:11 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/26 22:18:33 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,23 @@ typedef struct	s_carriage
 	unsigned int		operation_code;
 	unsigned int		last_live_cycle;
 	unsigned int		cycles_till_exec;
-	unsigned int		step;
+	unsigned int		offset;
 	unsigned int		position;
+	int					is_args_valid;
+	int					args[3];
 	int					reg[REG_NUMBER];
 	struct s_carriage	*next;
-
 }				t_carriage;
 
+typedef struct	s_op
+{
+	unsigned int	num_of_args;
+	unsigned int	arg_types[3];
+	unsigned int	cycles_to_exec;
+	unsigned int	change_carry;
+	unsigned int	dir_size;
+	unsigned int	args_byte;
+}				t_op;
 
 typedef struct	s_game
 {
@@ -64,14 +74,7 @@ typedef struct	s_game
 	unsigned char	*field;
 }				t_game;
 
-typedef struct	s_op
-{
-	int	num_of_attr;
-	int attr_types[3];
-	int	cycles_to_exec;
-	int carry_change;
-}				t_op;
-
+static t_op		g_ops[16];
 void			debug(void *arg, void *arg2, int var);
 void			verification_of_incoming_data(int ac, char **av);
 void			ft_print_usage_and_exit();
@@ -87,5 +90,9 @@ t_game			init_game();
 t_player		*init_players(int ac, char **av);
 t_carriage		*carriage_init(t_player *players);
 void			live(t_game *game, t_carriage *carriage);
+int				*decode_bit(unsigned char byte, int op_code);
+int				get_offset(int *args, int op_code);
+int				check_args(int *args, int op_code);
+void			get_args(int *args_type, t_game *game, t_carriage *carriage);
 
 #endif

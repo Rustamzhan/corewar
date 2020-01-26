@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 17:33:18 by astanton          #+#    #+#             */
-/*   Updated: 2019/12/08 00:42:18 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/26 21:51:09 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 
 # define MAX_ARGS_NUMBER	4
 # define MAX_PLAYERS		4
-# define MEM_SIZE			(4*1024)
-# define IDX_MOD			(MEM_SIZE / 8)
-# define CHAMP_MAX_SIZE		(MEM_SIZE / 6)
+# define MEM_SIZE			4*1024
+# define IDX_MOD			MEM_SIZE / 8
+# define CHAMP_MAX_SIZE		MEM_SIZE / 6
 
 # define COMMENT_CHAR		'#'
 # define LABEL_CHAR			':'
@@ -51,16 +51,8 @@ typedef char	t_arg_type;
 # define T_IND	4
 # define T_LAB	8
 
-# define PROG_NAME_LENGTH	(128)
-# define COMMENT_LENGTH		(2048)
+# define PROG_NAME_LENGTH	128
+# define COMMENT_LENGTH		2048
 # define COREWAR_EXEC_MAGIC	0xea83f3
-
-typedef struct		s_header
-{
-	unsigned int	magic;
-	char			prog_name[PROG_NAME_LENGTH + 1];
-	unsigned int	prog_size;
-	char			comment[COMMENT_LENGTH + 1];
-}					t_header;
 
 #endif

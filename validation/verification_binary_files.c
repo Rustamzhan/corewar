@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 19:21:05 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/09 15:59:48 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:09:15 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	check_exec_code(int fd, char *file)
 	lseek(fd, COMMENT_LENGTH + sizeof(unsigned int), SEEK_CUR);
 	while ((ret = read(fd, buff, sizeof(unsigned int) + 1)))
 		tmp += ret;
-	if (tmp != size || size > CHAMP_MAX_SIZE)
+	if (tmp != size || size > (CHAMP_MAX_SIZE))
 		ft_print_message_wrong_exec_size(file);
 }
 

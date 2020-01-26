@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:23:38 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/10 18:01:20 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:02:11 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ static void print_carriages(t_carriage *carriages)
 		ft_putnbr(carriages->cycles_till_exec);
 		write(1, "\n", 1);
 		write(1, "step : ", 7);
-		ft_putnbr(carriages->step);
+		ft_putnbr(carriages->offset);
 		write(1, "\n", 1);
 		write(1, "position : ", 11);
 		ft_putnbr(carriages->position);

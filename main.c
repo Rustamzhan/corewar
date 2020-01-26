@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 12:00:46 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/10 18:55:32 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:05:41 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,18 @@ int	main(int ac, char **av)
 	t_game		game;
 	t_player	*players;
 	t_carriage	*carriages;
-//	int			a;
+	int			a;
 
 	verification_of_incoming_data(ac, av);
 	game = init_game();
 	players = init_players(ac, av);
 	load_exec_code_in_battle_field(game, players);
 	carriages = carriage_init(players);
-	// debug(players, NULL, 2);
-	// debug(NULL, carriages, 4);
+	a = -5100;
+	a = a % (MEM_SIZE);
+	ft_putnbr(a);
+	//  debug(players, NULL, 2);
+	//  debug(NULL, carriages, 4);
 	// debug(&game, NULL, 5);
 	// debug(game.field, players, 1);
 
