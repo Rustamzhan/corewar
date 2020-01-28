@@ -6,40 +6,80 @@
 #    By: astanton <astanton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/03 16:12:01 by astanton          #+#    #+#              #
-#    Updated: 2020/01/26 23:01:25 by astanton         ###   ########.fr        #
+#    Updated: 2020/01/28 21:59:57 by astanton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = corewar
 
 SRCS = main.c\
-		./validation/verification.c\
-		./validation/verification_binary_files.c\
+		./args_prep/check_args.c\
+		./args_prep/decode_arg_byte.c\
+		./args_prep/get_and_check_args.c\
+		./args_prep/get_args.c\
+		./args_prep/get_offset.c\
 		./init/init_battle_field.c\
 		./init/init_players.c\
 		./init/save_info_about_players.c\
 		./init/load_exec_code.c\
 		./init/carriage_init.c\
+		./operations/add.c\
+		./operations/aff.c\
+		./operations/and.c\
+		./operations/fork.c\
+		./operations/ld.c\
+		./operations/ldi.c\
+		./operations/lfork.c\
 		./operations/live.c\
+		./operations/lld.c\
+		./operations/lldi.c\
+		./operations/or.c\
+		./operations/st.c\
+		./operations/sti.c\
+		./operations/sub.c\
+		./operations/xor.c\
+		./operations/zjmp.c\
+		./validation/verification.c\
+		./validation/verification_binary_files.c\
 		messages.c\
 		debug.c
 
 OBJ =  main.o\
-		./validation/verification.o\
-		./validation/verification_binary_files.o\
+		./args_prep/check_args.o\
+		./args_prep/decode_arg_byte.o\
+		./args_prep/get_and_check_args.o\
+		./args_prep/get_args.o\
+		./args_prep/get_offset.o\
 		./init/init_battle_field.o\
 		./init/init_players.o\
 		./init/save_info_about_players.o\
 		./init/load_exec_code.o\
 		./init/carriage_init.o\
+		./operations/add.o\
+		./operations/aff.o\
+		./operations/and.o\
+		./operations/fork.o\
+		./operations/ld.o\
+		./operations/ldi.o\
+		./operations/lfork.o\
 		./operations/live.o\
+		./operations/lld.o\
+		./operations/lldi.o\
+		./operations/or.o\
+		./operations/st.o\
+		./operations/sti.o\
+		./operations/sub.o\
+		./operations/xor.o\
+		./operations/zjmp.o\
+		./validation/verification.o\
+		./validation/verification_binary_files.o\
 		messages.o\
 		debug.o
 
 HDR = ./libft/includes/
 HDR1 = ./includes
 
-#FLAG = -Wall -Wextra -Werror
+FLAG = -Wall -Wextra -Werror
 
 all: lib $(NAME)
 

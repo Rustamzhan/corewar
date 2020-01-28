@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 17:11:30 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/26 22:11:19 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:35:24 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int	*decode_arg_byte(unsigned char byte, int op_code)
 {
-	int	args[4];
+	int	*args;
 	int	i;
 	int	move;
 
 	if (!g_ops[op_code].args_byte)
 		return (g_ops[op_code].arg_types);
+	args = ft_malloc(sizeof(int) * 5);
 	move = 6;
 	i = 0;
 	while (i < 4)
@@ -36,5 +37,6 @@ int	*decode_arg_byte(unsigned char byte, int op_code)
 		move -= 2;
 		i++;
 	}
+	args[4] = 1;
 	return (args);
 }

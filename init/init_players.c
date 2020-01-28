@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:43:40 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/09 19:23:52 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/28 18:53:45 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int		find_number(char check)
 	return (0);
 }
 
-static void		refill_champs_id(t_player *players)
+static char		refill_champs_id(t_player *players)
 {
 	char		check;
 	int			n;
@@ -104,9 +104,10 @@ static void		refill_champs_id(t_player *players)
 		}
 		tmp = tmp->next;
 	}
+	return (check);
 }
 
-t_player		*init_players(int ac, char **av)
+t_player		*init_players(int ac, char **av, t_game *game)
 {
 	t_player	*players;
 	t_player	*tmp;
@@ -126,6 +127,6 @@ t_player		*init_players(int ac, char **av)
 		i -= (i > 2 && (!ft_strcmp(av[i - 2], "-n")
 			|| !ft_strcmp(av[i - 2], "-dump"))) ? 3 : 1;
 	}
-	refill_champs_id(players);
+	game->players_id = refill_champs_id(players);
 	return (players);
 }
