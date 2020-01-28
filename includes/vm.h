@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:35:00 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 21:55:06 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/28 22:05:38 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void			get_and_check_args(t_game *game, t_carriage *carriage);
 void			add(t_game *game, t_carriage *carriage);
 void			aff(t_game *game, t_carriage *carriage);
 void			and(t_game *game, t_carriage *carriage);
-void			fork(t_game *game, t_carriage *carriage);
+void			ft_fork(t_game *game, t_carriage *carriage);
 void			ld(t_game *game, t_carriage *carriage);
 void			ldi(t_game *game, t_carriage *carriage);
 void			lfork(t_game *game, t_carriage *carriage);

@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:59:58 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 21:47:04 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/28 22:06:08 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ static t_carriage	*copy_carriage(t_carriage *carriage)
 		new->reg[i] = carriage->reg[i];
 		i++;
 	}
+	return (new);
 }
 
-void				fork(t_game *game, t_carriage *carriage)
+void				ft_fork(t_game *game, t_carriage *carriage)
 {
 	t_carriage	*new;
 

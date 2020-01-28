@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 19:01:56 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 21:47:30 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/28 22:08:06 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		sti(t_game *game, t_carriage *carriage)
 		b = carriage->reg[carriage->args[2]];
 	else
 		b = carriage->args[2];
-	carriage->reg[carriage->args[2]] = get_value(game,
-			carriage->position + (a + b) % (IDX_MOD),
+	load_data_on_field(game, carriage->position + (a + b) % (IDX_MOD),
 			(unsigned char *)&(carriage->reg[carriage->args[0]]));
 }
