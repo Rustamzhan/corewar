@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 19:31:18 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/26 23:35:34 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/31 18:43:42 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ t_carriage			*carriage_init(t_player *players)
 	position = 0;
 	step = find_step(players);
 	carriages = NULL;
+	while (players->next)
+		players = players->next;
 	while (players)
 	{
 		tmp = create_carriage();
@@ -74,7 +76,7 @@ t_carriage			*carriage_init(t_player *players)
 		position += step;
 		tmp->next = carriages;
 		carriages = tmp;
-		players = players->next;
+		players = players->prev;
 	}
 	return (carriages);
 }

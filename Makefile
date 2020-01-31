@@ -6,7 +6,7 @@
 #    By: astanton <astanton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/03 16:12:01 by astanton          #+#    #+#              #
-#    Updated: 2020/01/28 21:59:57 by astanton         ###   ########.fr        #
+#    Updated: 2020/01/31 18:00:38 by astanton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS = main.c\
 		./init/save_info_about_players.c\
 		./init/load_exec_code.c\
 		./init/carriage_init.c\
+		./init/sort_players.c\
 		./operations/add.c\
 		./operations/aff.c\
 		./operations/and.c\
@@ -39,9 +40,10 @@ SRCS = main.c\
 		./operations/sub.c\
 		./operations/xor.c\
 		./operations/zjmp.c\
+		./print/introducing.c\
+		./print/messages.c\
 		./validation/verification.c\
 		./validation/verification_binary_files.c\
-		messages.c\
 		debug.c
 
 OBJ =  main.o\
@@ -55,6 +57,7 @@ OBJ =  main.o\
 		./init/save_info_about_players.o\
 		./init/load_exec_code.o\
 		./init/carriage_init.o\
+		./init/sort_players.o\
 		./operations/add.o\
 		./operations/aff.o\
 		./operations/and.o\
@@ -71,9 +74,10 @@ OBJ =  main.o\
 		./operations/sub.o\
 		./operations/xor.o\
 		./operations/zjmp.o\
+		./print/introducing.o\
+		./print/messages.o\
 		./validation/verification.o\
 		./validation/verification_binary_files.o\
-		messages.o\
 		debug.o
 
 HDR = ./libft/includes/

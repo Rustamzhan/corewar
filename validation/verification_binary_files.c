@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 19:21:05 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/26 23:09:15 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/30 22:05:33 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		check_binary_files(int *arg_types, char **av, int ac, int files)
 {
 	int i;
 
-	if (files > MAX_PLAYERS || files == 0)
+	if (files > MAX_PLAYERS)
 	{
 		write(1, "\x1b[35m", 5);
 		write(1, "\nToo many champions.\n", 21);

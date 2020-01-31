@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:13:55 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/10 17:55:29 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/31 20:00:25 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	ft_print_usage_and_exit(void)
 {
 	write(1, "\x1b[31m", 5);
 	write(1, "\n", 1);
-	write(1, "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] \
-...\n", 68);
+	write(1, "Usage: ./corewar [-dump nbr_cycles | -v] [[-n number] \
+champion1.cor] ...\n", 68);
 	write(1, "\n", 1);
+	write(1, "  -v		   : visualization mode\n", 30);
 	write(1, "  -dump nbr_cycles : Dumps memory after nbr_cycles cycles \
 then exits\n", 69);
 	write(1, "  -n	number	   : Sets the number of the next player, \

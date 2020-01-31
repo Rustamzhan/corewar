@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:12:27 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 17:34:23 by astanton         ###   ########.fr       */
+/*   Updated: 2020/01/31 16:40:41 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	check_file(char *name_file)
 	if (fd < 0)
 	{
 		write(1, "\x1b[35m", 5);
-		write(1, "\nCan't open file, check filename, please.2\n", 43);
+		write(1, "\nCan't open file, check filename, please.\n", 42);
 		ft_print_usage_and_exit();
 	}
 	if (close(fd) != 0)
@@ -70,21 +70,20 @@ static void	check_arguments(int *types, char **av, int ac, int n)
 {
 	int	i;
 
-	i = 0;
-	if (ac == 2 && types[0] != TYPE_FILE)
+	i = (types[0] == -1) ? 1 : 0;
+	if ((ac < 4 + i && types[i] != TYPE_FILE) ||
+		(i > 0 && types[i] == TYPE_OPT_DUMP) ||
+		(types[i] == TYPE_OPT_DUMP && types[i + 1] != TYPE_NUMBER))
 		ft_print_usage_and_exit();
+	if (types[i] == TYPE_OPT_DUMP)
+		i++;
 	while (++i < ac)
 	{
-		if (types[i - 1] == TYPE_OPT_DUMP && (i > 2 || ac - i - 2 < 1
-			|| types[i] != TYPE_NUMBER))
-			ft_print_usage_and_exit();
-		else if (types[i - 1] == TYPE_OPT_DUMP)
-			i++;
 		if (types[i - 1] == TYPE_FILE)
 			check_file(av[i]);
 		else if (types[i - 1] == TYPE_OPT_N)
 		{
-			if (ac - i - 2 < 1 || types[i] != TYPE_NUMBER
+			if (types[i] != TYPE_NUMBER
 				|| !ft_isnumber(av[i + 1], 1, &n) || types[i + 1] != TYPE_FILE)
 			{
 				write(1, "\x1b[35m", 5);
@@ -95,12 +94,15 @@ static void	check_arguments(int *types, char **av, int ac, int n)
 	}
 }
 
-static int	choose_type(char *str, int *arg_types, int i)
+static int	choose_type(char *str, int *arg_types, int i, t_game *game)
 {
 	if (!(ft_strcmp(str, "-n")))
 		return (TYPE_OPT_N);
-	else if (!(ft_strcmp(str, "-dump")))
+	else if (!(ft_strcmp(str, "-dump")) && i < 4)
+	{
+		game->dump = i + 1;
 		return (TYPE_OPT_DUMP);
+	}
 	else if (ft_isnumber(str, 0, 0) && (i > 1
 	&& (arg_types[i - 2] == TYPE_OPT_DUMP || arg_types[i - 2] == TYPE_OPT_N)))
 		return (TYPE_NUMBER);
@@ -108,7 +110,7 @@ static int	choose_type(char *str, int *arg_types, int i)
 		return (TYPE_FILE);
 }
 
-void		verification_of_incoming_data(int ac, char **av)
+void		verification_of_incoming_data(int ac, char **av, t_game *game)
 {
 	int	i;
 	int	files;
@@ -121,17 +123,16 @@ void		verification_of_incoming_data(int ac, char **av)
 	{
 		i++;
 		arg_types[0] = -1;
+		game->visualization = 1;
 	}
 	files = 0;
 	while (++i < ac)
 	{
-		arg_types[i - 1] = choose_type(av[i], arg_types, i);
+		arg_types[i - 1] = choose_type(av[i], arg_types, i, game);
 		if (arg_types[i - 1] == TYPE_FILE)
 			files++;
 	}
-	if ((arg_types[0] == TYPE_OPT_DUMP || arg_types[1] == TYPE_OPT_DUMP)
-		&& ft_strcmp(av[1], "-v") && ft_strcmp(av[1], "-dump"))
-		ft_print_usage_and_exit();
 	check_arguments(arg_types, av, ac, 0);
+	game->dump_cycles = (game->dump) ? ft_atoi(av[game->dump]) : 0;
 	check_binary_files(arg_types, av, ac, files);
 }
