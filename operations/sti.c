@@ -6,16 +6,18 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 19:01:56 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 22:08:06 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/05 05:17:07 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	load_data_on_field(t_game *game, int position, unsigned char *value)
+static void	load_data_on_field(t_game *game, int position, int reg)
 {
-	int	i;
+	int		i;
+	char	*value;
 
+	value = (char *)&reg;
 	if (position >= 0)
 		position %= (MEM_SIZE);
 	else
@@ -23,7 +25,7 @@ static void	load_data_on_field(t_game *game, int position, unsigned char *value)
 	i = 0;
 	while (i < 4)
 	{
-		game->field[(position + i) % (MEM_SIZE)] = value[i];
+		game->field[(position + i) % (MEM_SIZE)] = value[3 - i];
 		i++;
 	}
 }
@@ -45,5 +47,5 @@ void		sti(t_game *game, t_carriage *carriage)
 	else
 		b = carriage->args[2];
 	load_data_on_field(game, carriage->position + (a + b) % (IDX_MOD),
-			(unsigned char *)&(carriage->reg[carriage->args[0]]));
+			carriage->reg[carriage->args[0]]);
 }

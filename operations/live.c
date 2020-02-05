@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 13:34:44 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 18:57:42 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/04 22:11:16 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 void	live(t_game *game, t_carriage *carriage)
 {
+	t_player	*tmp;
+
 	get_and_check_args(game, carriage);
 	if (!carriage->is_args_valid)
 		return ;
-	if (game->players_id & (1 << carriage->args[0]))
+	tmp = game->players;
+	while (tmp && tmp->player_id != -carriage->args[0])
+		tmp = tmp->next;
+	if (tmp)
 		game->last_survivor = carriage->args[0];
 	carriage->last_live_cycle = game->current_cycle;
 	game->number_of_live_instructions += 1;

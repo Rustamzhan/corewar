@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 18:37:44 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 20:50:59 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/05 03:33:53 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	get_dir_arg(int pos, unsigned char *field, int dir_size)
 		return ((int)(*(int *)result));
 }
 
-static int	get_ind_arg(int pos, unsigned char *field, int op_code)
+static int	get_ind_arg(int pos, int car_pos, unsigned char *field, int op_code)
 {
 	int				offset;
 	unsigned char	result[2];
@@ -39,8 +39,8 @@ static int	get_ind_arg(int pos, unsigned char *field, int op_code)
 	offset = (int)(*((short int *)result));
 	if (g_ops[op_code].idx_mod)
 		offset %= (IDX_MOD);
-	pos += offset;
-	if (pos > 0)
+	pos = car_pos + offset;
+	if (pos >= 0)
 		pos = pos % (MEM_SIZE);
 	else
 		pos = (MEM_SIZE) + pos % (MEM_SIZE);
@@ -60,7 +60,7 @@ static int	get_value(int *args_type, t_game *game, t_carriage *carriage, int i)
 	}
 	else if (args_type[i] == T_IND)
 	{
-		carriage->args[i] = get_ind_arg(pos, game->field,
+		carriage->args[i] = get_ind_arg(pos, carriage->position, game->field,
 									carriage->operation_code);
 		pos = IND_SIZE;
 	}
@@ -91,6 +91,6 @@ void		get_args(int *args_type, t_game *game, t_carriage *carriage)
 			pos += get_value(args_type, game, carriage, i);
 		i++;
 	}
-	while (i < 4)
+	while (i < 3)
 		carriage->args[i++] = 0;
 }

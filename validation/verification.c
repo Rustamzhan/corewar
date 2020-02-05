@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:12:27 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/31 16:40:41 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:00:23 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,6 @@ void		verification_of_incoming_data(int ac, char **av, t_game *game)
 			files++;
 	}
 	check_arguments(arg_types, av, ac, 0);
-	game->dump_cycles = (game->dump) ? ft_atoi(av[game->dump]) : 0;
+	game->dump_cycles = (game->dump) ? ft_atoi(av[game->dump]) : -1;
 	check_binary_files(arg_types, av, ac, files);
 }

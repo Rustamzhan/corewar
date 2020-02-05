@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 19:31:18 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/31 18:43:42 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/05 05:51:52 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ static int			find_step(t_player *players)
 static void			fill_carriage(t_player *players, t_carriage *carriages,
 									unsigned int position)
 {
+	int i;
+
+	i = 0;
 	carriages->id = players->player_id;
 	carriages->carry = 0;
 	carriages->operation_code = 0;
@@ -53,7 +56,8 @@ static void			fill_carriage(t_player *players, t_carriage *carriages,
 	carriages->cycles_till_exec = 0;
 	carriages->offset = 0;
 	carriages->position = position;
-	ft_bzero(carriages->reg, REG_NUMBER);
+	while (++i < 16)
+		carriages->reg[i] = 0;
 	carriages->reg[0] = -(players->player_id);
 }
 

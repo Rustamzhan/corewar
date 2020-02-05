@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:08:03 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/31 16:20:34 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/05 05:27:18 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_game		init_game(void)
 	}
 	ft_bzero(game.field, (MEM_SIZE));
 	game.carriages = NULL;
+	game.last_check_cycle = 0;
+	game.last_survivor = 0;
 	game.dump = 0;
 	game.visualization = 0;
 	game.current_cycle = 0;

@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/26 20:07:09 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 05:25:27 by astanton         ###   ########.fr       */
+/*   Created: 2019/12/03 12:00:46 by astanton          #+#    #+#             */
+/*   Updated: 2020/02/04 15:17:20 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int	check_args(int *args, int op_code)
+int				main(int ac, char **av)
 {
-	int	i;
+	t_game		game;
 
-	i = 0;
-	if (!g_ops[op_code].args_byte)
-		return (0);
-	while (i < g_ops[op_code].num_of_args)
-	{
-		if (!(args[i] & (g_ops[op_code]).arg_types[i]))
-			return (1);
-		i++;
-	}
-	while (i < 4)
-	{
-		if (args[i])
-			return (1);
-		i++;
-	}
+	game = init_game();
+	verification_of_incoming_data(ac, av, &game);
+	game.dump = (game.dump_cycles < 0) ? 0 : 1;
+	game.players = init_players(ac, av, &game);
+	game.players = sort_players(game.players);
+	load_exec_code_in_battle_field(game, game.players);
+	game.carriages = carriage_init(game.players);
+	game.last_survivor = -game.players->player_id;
+	start_game(&game);
+	free_resources(game);
 	return (0);
 }

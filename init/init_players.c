@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:43:40 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/31 17:10:12 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/05 05:40:10 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static t_player	*fill_player(char *file_name, int id)
 	player = (t_player*)malloc(sizeof(t_player));
 	if (!player)
 	{
-		write(1, "\x1b[35m", 6);
+		write(1, "\x1b[35m", 5);
 		write(1, "\nMemory for player is not allocated.\n", 37);
-		write(1, "\x1b[0m", 6);
+		write(1, "\x1b[0m", 4);
 		exit(4);
 	}
 	player->name = save_name(fd);

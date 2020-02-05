@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 22:41:47 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/09 16:02:47 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/05 01:36:40 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ unsigned char	*save_exec_code(int fd, int size_of_code)
 	int		ret;
 
 	lseek(fd, sizeof(COREWAR_EXEC_MAGIC), SEEK_CUR);
-	code = (char *)malloc(sizeof(char) * size_of_code);
+	code = (char *)ft_malloc(sizeof(char) * size_of_code);
 	if (!code)
 	{
 		write(1, "\x1b[35m", 5);

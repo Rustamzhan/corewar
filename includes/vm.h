@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:35:00 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/31 19:58:23 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/04 15:43:00 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ typedef struct	s_player
 
 typedef struct	s_carriage
 {
-	unsigned int		id;
-	unsigned int		carry;
-	unsigned int		operation_code;
-	unsigned int		last_live_cycle;
-	unsigned int		cycles_till_exec;
-	unsigned int		offset;
-	unsigned int		position;
-	unsigned int		cur_position;
+	int					id;
+	int					cycles_till_exec;
+	int					position;
+	int					cur_position;
+	int					carry;
+	int					operation_code;
+	int					last_live_cycle;
+	int					offset;
 	int					is_args_valid;
 	int					args_type[3];
 	int					args[3];
@@ -61,6 +61,7 @@ typedef struct	s_game
 	int					visualization;
 	int					last_survivor;
 	int					current_cycle;
+	int					last_check_cycle;
 	int					number_of_live_instructions;
 	int					cycles_to_die;
 	int					number_of_checks;
@@ -145,5 +146,11 @@ void			ft_print_message_wrong_exec_size(char *file);
 void			ft_print_message_wrong_null_marker(char *file);
 void			load_exec_code_in_battle_field(t_game game, t_player *players);
 void			introducing_players(t_player *players);
+void			start_game(t_game *game);
+void			exec_all_carriages(t_game *game);
+void			check_carriages(t_game *game);
+void			dump_field(unsigned char *field);
+void			print_winner(t_game *game);
+void			free_resources(t_game game);
 
 #endif

@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_offset.c                                       :+:      :+:    :+:   */
+/*   print_winner.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/25 18:13:26 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 00:28:00 by astanton         ###   ########.fr       */
+/*   Created: 2020/02/04 14:18:53 by astanton          #+#    #+#             */
+/*   Updated: 2020/02/05 05:29:12 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-int	get_offset(int *args, int op_code)
+void	print_winner(t_game *game)
 {
-	int	offset;
-	int i;
+	t_player	*tmp;
 
-	offset = 1;
-	i = 0;
-	while (i < g_ops[op_code].num_of_args)
-	{
-		if (args[i] == T_DIR)
-			offset += g_ops[op_code].dir_size;
-		else if (args[i] == T_REG)
-			offset += 1;
-		else if (args[i] == T_IND)
-			offset += 2;
-		i++;
-	}
-	offset += g_ops[op_code].args_byte;
-	return (offset);
+	tmp = game->players;
+	while (tmp && (tmp->player_id != -(game->last_survivor)))
+		tmp = tmp->next;
+	write(1, "Contestant ", 11);
+	ft_putnbr(tmp->player_id);
+	write(1, ", \"", 3);
+	write(1, tmp->name, ft_strlen(tmp->name));
+	write(1, "\", has won !\n", 13);
 }

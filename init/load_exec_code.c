@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 15:25:54 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/26 23:36:05 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:09:18 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ void		load_exec_code_in_battle_field(t_game game, t_player *players)
 	int				one_champ_size;
 
 	tmp = players;
+	while (tmp->next)
+		tmp = tmp->next;
 	field = game.field;
 	one_champ_size = find_size_of_champ_field(players);
 	while (tmp)
 	{
 		ft_memcpy(field, tmp->code, tmp->size_of_code);
 		field += one_champ_size;
-		tmp = tmp->next;
+		tmp = tmp->prev;
 	}
 }
