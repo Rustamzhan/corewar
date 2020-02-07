@@ -6,13 +6,13 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 19:01:31 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 20:06:29 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 02:46:54 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	or(t_game *game, t_carriage *carriage)
+void	ft_or(t_game *game, t_carriage *carriage)
 {
 	int	a;
 	int	b;

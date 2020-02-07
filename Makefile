@@ -6,7 +6,7 @@
 #    By: astanton <astanton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/03 16:12:01 by astanton          #+#    #+#              #
-#    Updated: 2020/02/05 06:01:21 by astanton         ###   ########.fr        #
+#    Updated: 2020/02/07 04:54:48 by astanton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,8 @@ SRCS = ./main_cycle/main.c\
 		./main_cycle/exec_all_carriages.c\
 		./main_cycle/free_resources.c\
 		./main_cycle/start_game.c\
+		./main_cycle/cycle_with_visual.c\
+		./main_cycle/ncurses_init.c\
 		./operations/add.c\
 		./operations/aff.c\
 		./operations/and.c\
@@ -67,6 +69,8 @@ OBJ =  ./main_cycle/main.o\
 		./main_cycle/exec_all_carriages.o\
 		./main_cycle/free_resources.o\
 		./main_cycle/start_game.o\
+		./main_cycle/cycle_with_visual.o\
+		./main_cycle/ncurses_init.o\
 		./operations/add.o\
 		./operations/aff.o\
 		./operations/and.o\

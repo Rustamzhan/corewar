@@ -6,11 +6,12 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:59:08 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 03:07:34 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 06:36:37 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include <ncurses.h>
 
 void	aff(t_game *game, t_carriage *carriage)
 {
@@ -20,5 +21,13 @@ void	aff(t_game *game, t_carriage *carriage)
 	if (!carriage->is_args_valid)
 		return ;
 	c = carriage->reg[carriage->args[0]] % 256;
-	write(2, &c, 1);
+	if (game->visualization)
+	{
+		game->aff++;
+		mvprintw(68, 0, "AFF : ");
+		mvprintw(68 + (game->aff / 250), 6 + (game->aff % 250), "%c", c);
+		refresh();
+	}
+	else
+		write(1, &c, 1);	
 }

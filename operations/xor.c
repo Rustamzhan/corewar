@@ -6,13 +6,13 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 19:02:22 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 20:08:08 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 02:46:58 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	xor(t_game *game, t_carriage *carriage)
+void	ft_xor(t_game *game, t_carriage *carriage)
 {
 	int	a;
 	int	b;

@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:35:00 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/04 15:43:00 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 05:09:40 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@
 # define TYPE_FILE		3
 # define TYPE_NUMBER	4
 
+typedef struct	s_keyboard
+{
+	int speed;
+	int	pause;
+	int	quit;
+	int	end;
+}				t_keyboard;
+
 typedef struct	s_player
 {
 	char			*name;
@@ -33,6 +41,7 @@ typedef struct	s_player
 	unsigned char	*code;
 	int				player_id;
 	int				size_of_code;
+	int				last_live;
 	struct s_player	*next;
 	struct s_player	*prev;
 }				t_player;
@@ -56,6 +65,7 @@ typedef struct	s_carriage
 
 typedef struct	s_game
 {
+	int					aff;
 	int					dump;
 	int					dump_cycles;
 	int					visualization;
@@ -65,9 +75,11 @@ typedef struct	s_game
 	int					number_of_live_instructions;
 	int					cycles_to_die;
 	int					number_of_checks;
+	int					car_number;
 	char				players_id;
 	struct s_carriage	*carriages;
 	struct s_player		*players;
+	char				*colors;
 	unsigned char		*field;
 }				t_game;
 
@@ -124,7 +136,7 @@ void			get_args(int *args_type, t_game *game, t_carriage *carriage);
 void			get_and_check_args(t_game *game, t_carriage *carriage);
 void			add(t_game *game, t_carriage *carriage);
 void			aff(t_game *game, t_carriage *carriage);
-void			and(t_game *game, t_carriage *carriage);
+void			ft_and(t_game *game, t_carriage *carriage);
 void			ft_fork(t_game *game, t_carriage *carriage);
 void			ld(t_game *game, t_carriage *carriage);
 void			ldi(t_game *game, t_carriage *carriage);
@@ -132,11 +144,11 @@ void			lfork(t_game *game, t_carriage *carriage);
 void			live(t_game *game, t_carriage *carriage);
 void			lld(t_game *game, t_carriage *carriage);
 void			lldi(t_game *game, t_carriage *carriage);
-void			or(t_game *game, t_carriage *carriage);
+void			ft_or(t_game *game, t_carriage *carriage);
 void			st(t_game *game, t_carriage *carriage);
 void			sti(t_game *game, t_carriage *carriage);
 void			sub(t_game *game, t_carriage *carriage);
-void			xor(t_game *game, t_carriage *carriage);
+void			ft_xor(t_game *game, t_carriage *carriage);
 void			zjmp(t_game *game, t_carriage *carriage);
 void			debug(void *arg, void *arg2, int var);
 void			verification_of_incoming_data(int ac, char **av, t_game *game);
@@ -152,5 +164,9 @@ void			check_carriages(t_game *game);
 void			dump_field(unsigned char *field);
 void			print_winner(t_game *game);
 void			free_resources(t_game game);
+void			start_game_cycle(t_game *game, t_keyboard *keyboard);
+void			init_ncurses(void);
+void			print_game_conditions(t_game *game);
+void			print_pause(t_keyboard *key);
 
 #endif

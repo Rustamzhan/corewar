@@ -6,14 +6,14 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 19:02:55 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/04 22:43:36 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 02:48:46 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 static void	(*g_func_op[16])(t_game *game, t_carriage *carriage) = {
-	&live, &ld, &st, &add, &sub, &and, &or, &xor, &zjmp, &ldi, &sti,
+	&live, &ld, &st, &add, &sub, &ft_and, &ft_or, &ft_xor, &zjmp, &ldi, &sti,
 	&ft_fork, &lld, &lldi, &lfork, &aff};
 
 static int	get_position(int current, int offset)

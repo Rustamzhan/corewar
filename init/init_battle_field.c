@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:08:03 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 05:27:18 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 05:09:30 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_game		init_game(void)
 {
 	t_game	game;
 
-	game.field = (unsigned char *)malloc(sizeof(unsigned char) * (MEM_SIZE));
+	game.field = (unsigned char *)ft_malloc(sizeof(unsigned char) * (MEM_SIZE));
 	if (!game.field)
 	{
 		write(1, "\x1b[35m", 5);
@@ -34,5 +34,6 @@ t_game		init_game(void)
 	game.number_of_checks = 0;
 	game.number_of_live_instructions = 0;
 	game.cycles_to_die = CYCLE_TO_DIE;
+	game.aff = 0;
 	return (game);
 }

@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:59:58 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 22:06:08 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 03:40:16 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void				ft_fork(t_game *game, t_carriage *carriage)
 	new->id = game->carriages->id + 1;
 	new->next = game->carriages;
 	game->carriages = new;
+	game->car_number++;
 }

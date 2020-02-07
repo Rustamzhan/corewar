@@ -6,13 +6,14 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 19:01:44 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/04 23:41:32 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 04:54:07 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	load_data_on_field(t_game *game, int pos, char *value)
+static void	load_data_on_field(t_game *game, int pos, t_carriage *car,
+								char *value)
 {
 	int	i;
 
@@ -20,6 +21,8 @@ static void	load_data_on_field(t_game *game, int pos, char *value)
 	while (i < 4)
 	{
 		game->field[(pos + i) % (MEM_SIZE)] = value[3 - i];
+		if (game->visualization)
+			game->colors[(pos + i) % (MEM_SIZE)] = game->colors[car->position];
 		i++;
 	}
 }
@@ -42,7 +45,7 @@ void		st(t_game *game, t_carriage *carriage)
 		position = carriage->position + (carriage->args[1] % (IDX_MOD));
 		position = (position >= 0) ? position % (MEM_SIZE) :
 							(MEM_SIZE) + (position % (MEM_SIZE));
-		load_data_on_field(game, position,
+		load_data_on_field(game, position, carriage,
 					(char *)&(carriage->reg[carriage->args[0]]));
 	}
 }

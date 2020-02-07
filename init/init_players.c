@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:43:40 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 05:40:10 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 03:45:57 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static t_player	*fill_player(char *file_name, int id)
 	player->comment = save_comment(fd);
 	player->code = save_exec_code(fd, player->size_of_code);
 	player->player_id = id;
+	player->last_live = 0;
 	player->prev = NULL;
 	player->next = NULL;
 	open_close_fd(file_name, 2, fd);
@@ -116,6 +117,7 @@ t_player		*init_players(int ac, char **av, t_game *game)
 
 	i = ac - 1;
 	players = NULL;
+	game->car_number = 0;
 	while (i > 0 && ft_strcmp(av[i - 1], "-dump") && ft_strcmp(av[i], "-v"))
 	{
 		champ_id = (i > 2 && !ft_strcmp(av[i - 2], "-n")) ?
@@ -124,6 +126,7 @@ t_player		*init_players(int ac, char **av, t_game *game)
 		tmp->next = players;
 		(players) ? players->prev = tmp : 0;
 		players = tmp;
+		game->car_number++;
 		i -= (i > 2 && (!ft_strcmp(av[i - 2], "-n")
 			|| !ft_strcmp(av[i - 2], "-dump"))) ? 3 : 1;
 	}

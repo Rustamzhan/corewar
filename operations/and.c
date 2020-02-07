@@ -6,13 +6,13 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:59:37 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/28 20:05:40 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 02:46:48 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void	and(t_game *game, t_carriage *carriage)
+void	ft_and(t_game *game, t_carriage *carriage)
 {
 	int	a;
 	int	b;

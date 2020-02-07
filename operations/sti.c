@@ -6,26 +6,29 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 19:01:56 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 05:17:07 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 04:53:31 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	load_data_on_field(t_game *game, int position, int reg)
+static void	load_data_on_field(t_game *game, int pos, t_carriage *car,
+								int reg)
 {
 	int		i;
 	char	*value;
 
 	value = (char *)&reg;
-	if (position >= 0)
-		position %= (MEM_SIZE);
+	if (pos >= 0)
+		pos %= (MEM_SIZE);
 	else
-		position = (MEM_SIZE) + (position % (MEM_SIZE));
+		pos = (MEM_SIZE) + (pos % (MEM_SIZE));
 	i = 0;
 	while (i < 4)
 	{
-		game->field[(position + i) % (MEM_SIZE)] = value[3 - i];
+		game->field[(pos + i) % (MEM_SIZE)] = value[3 - i];
+		if (game->visualization)
+			game->colors[(pos + i) % (MEM_SIZE)] = game->colors[car->position];
 		i++;
 	}
 }
@@ -46,6 +49,6 @@ void		sti(t_game *game, t_carriage *carriage)
 		b = carriage->reg[carriage->args[2]];
 	else
 		b = carriage->args[2];
-	load_data_on_field(game, carriage->position + (a + b) % (IDX_MOD),
+	load_data_on_field(game, carriage->position + (a + b) % (IDX_MOD), carriage,
 			carriage->reg[carriage->args[0]]);
 }

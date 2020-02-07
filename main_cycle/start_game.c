@@ -6,67 +6,83 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 18:52:50 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 04:46:18 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/07 04:53:00 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+#include <pthread.h>
 #include <ncurses.h>
 
-static void	print_field(unsigned char *field, char *dst)
+static char	*get_colors_field(t_game *game)
 {
-	int		i;
-	int		j;
-	char	*hex;
+	char		*color_field;
+	int			i;
+	int			j;
+	t_player	*tmp;
+	t_carriage	*car;
 
-	i = 0;
-	j = 0;
-	hex = "0123456789abcdef";
-	while (i < MEM_SIZE)
+	color_field = (char *)ft_malloc(sizeof(char) * MEM_SIZE);
+	i = -1;
+	tmp = game->players;
+	car = game->carriages;
+	while (++i < MEM_SIZE)
+		color_field[i] = 0;
+	while (tmp)
 	{
-		dst[j++] = hex[(field[i] >> 4) & 0xf];
-		dst[j++] = hex[field[i] & 0xf];
-		dst[j++] = ' ';
-		if (i % LINE_LENGTH == LINE_LENGTH - 1)
-			dst[j++] = '\n';
-		i++;
+		i = car->position;
+		j = i + tmp->size_of_code;
+		while (i < j)
+			color_field[i++] = tmp->player_id;
+		tmp = tmp->next;
+		car = car->next;
 	}
-	dst[j] = '\0';
+	return (color_field);
+}
+
+static void	thread_func(t_keyboard *keyboard)
+{
+	char	c;
+
+	keyboard->end = 0;
+	while (1)
+	{
+		if (keyboard->end)
+			pthread_exit(0);
+		read(0, &c, 1);
+		if (c == ' ')
+			keyboard->pause = (keyboard->pause) ? 0 : 1;
+		else if (c == 'q')
+		{
+			keyboard->quit = 1;
+			keyboard->pause = 0;
+			pthread_exit(0);
+		}
+		else if (c == '+')
+			keyboard->speed += (keyboard->speed < 1000) ? 10 : 0;
+		else if (c == '-')
+			keyboard->speed -= (keyboard->speed > 10) ? 10 : 0;
+	}
 }
 
 static void	start_game_with_visual(t_game *game)
 {
-	char *dst;
-	WINDOW *win;
+	pthread_t		*new_thread;
+	t_keyboard		*keyboard;
 
-	dst = malloc(12928);
-	initscr();
-	win = newwin(192, 192, 0, 0);
-	if (!game)
-		exit(1);
-	while (game->carriages)
-	{
-		game->current_cycle++;
-		exec_all_carriages(game);
-		print_field(game->field, dst);
-		waddstr(win, dst);
-		wrefresh(win);
-		if (game->current_cycle - game->last_check_cycle >= game->cycles_to_die
-			|| game->cycles_to_die <= 0)
-		{
-			game->last_check_cycle = game->current_cycle;
-			check_carriages(game);
-			game->number_of_checks++;
-			if (game->number_of_live_instructions >= NBR_LIVE
-				|| game->number_of_checks == MAX_CHECKS)
-			{
-				game->cycles_to_die -= CYCLE_DELTA;
-				game->number_of_checks = 0;
-			}
-			game->number_of_live_instructions = 0;
-		}
-	}
-	endwin();
+	game->colors = get_colors_field(game);
+	keyboard = (t_keyboard *)ft_malloc(sizeof(t_keyboard));
+	keyboard->pause = 1;
+	keyboard->quit = 0;
+	keyboard->speed = 10;
+	new_thread = (pthread_t *)ft_malloc(sizeof(pthread_t));
+	pthread_create(new_thread, NULL, (void *)&thread_func, keyboard);
+	start_game_cycle(game, keyboard);
+	free(keyboard);
+	free(new_thread);
+	free(game->colors);
+	keyboard->end = 1;
+	pthread_join(*new_thread, NULL);
 }
 
 static void	start_game_simple(t_game *game)
@@ -100,7 +116,11 @@ static void	start_game_simple(t_game *game)
 void		start_game(t_game *game)
 {
 	if (game->visualization)
+	{
+		init_ncurses();
 		start_game_with_visual(game);
+		endwin();
+	}
 	else
 	{
 		introducing_players(game->players);
