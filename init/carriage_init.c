@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 19:31:18 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 05:51:52 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/11 20:18:09 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,7 @@ static t_carriage	*create_carriage(void)
 
 	carriage = (t_carriage *)malloc(sizeof(t_carriage));
 	if (!carriage)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nMemory for carriage is not allocated.\n", 40);
-		write(1, "\x1b[0m", 4);
-		exit(4);
-	}
+		ft_print_error_message("Memory for carriage is not allocated.", NULL);
 	carriage->next = NULL;
 	return (carriage);
 }

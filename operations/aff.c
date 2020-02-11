@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 18:59:08 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/07 06:36:37 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:02:19 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,9 @@ void	aff(t_game *game, t_carriage *carriage)
 		refresh();
 	}
 	else
-		write(1, &c, 1);	
+	{
+		write(1, "Aff: ", 5);
+		write(1, &c, 1);
+		write(1, "\n", 1);
+	}
 }

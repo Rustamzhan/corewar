@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 22:41:47 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/05 01:36:40 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/11 20:24:14 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ char			*save_name(int fd)
 	buff[ret] = '\0';
 	name = (char *)malloc(sizeof(char) * (ft_strlen(buff) + 1));
 	if (!name)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nMemory for name is not allocated.\n", 35);
-		write(1, "\x1b[0m", 4);
-		exit(4);
-	}
+		ft_print_error_message("Memory for name is not allocated.", NULL);
 	return (ft_strcpy(name, buff));
 }
 
@@ -42,12 +37,7 @@ char			*save_comment(int fd)
 	buff[ret] = '\0';
 	comment = (char *)malloc(sizeof(char) * (ft_strlen(buff) + 1));
 	if (!comment)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nMemory for comment is not allocated.\n", 38);
-		write(1, "\x1b[0m", 4);
-		exit(4);
-	}
+		ft_print_error_message("Memory for comment is not allocated.", NULL);
 	return (ft_strcpy(comment, buff));
 }
 
@@ -76,14 +66,9 @@ unsigned char	*save_exec_code(int fd, int size_of_code)
 	int		ret;
 
 	lseek(fd, sizeof(COREWAR_EXEC_MAGIC), SEEK_CUR);
-	code = (char *)ft_malloc(sizeof(char) * size_of_code);
+	code = (char *)malloc(sizeof(char) * size_of_code);
 	if (!code)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nMemory for exec_code is not allocated.\n", 40);
-		write(1, "\x1b[0m", 4);
-		exit(4);
-	}
+		ft_print_error_message("Memory for exec_code is not allocated.", NULL);
 	ret = read(fd, buff, size_of_code);
 	return ((unsigned char *)ft_memcpy(code, buff, size_of_code));
 }

@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 17:43:40 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/07 03:45:57 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/11 20:29:16 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,11 @@ static int		open_close_fd(char *file, int var, int close_fd)
 	{
 		fd = open(file, O_RDONLY);
 		if (fd < 0)
-		{
-			write(1, "\x1b[35m", 6);
-			write(1, "\nCan't open file, check filename, please.\n", 43);
-			ft_print_usage_and_exit();
-		}
+			ft_print_usage_and_exit("Can't open file, check filename, please.");
 		return (fd);
 	}
-	else
-	{
-		if (close(close_fd))
-		{
-			write(1, "\x1b[35m", 6);
-			write(1, "\nCan't close file.\n", 20);
-			write(1, "\x1b[0m", 6);
-			exit(2);
-		}
-	}
+	else if (close(close_fd))
+		ft_print_error_message("Can't close file.", NULL);
 	return (-1);
 }
 
@@ -48,12 +36,7 @@ static t_player	*fill_player(char *file_name, int id)
 	fd = open_close_fd(file_name, 1, 0);
 	player = (t_player*)malloc(sizeof(t_player));
 	if (!player)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nMemory for player is not allocated.\n", 37);
-		write(1, "\x1b[0m", 4);
-		exit(4);
-	}
+		ft_print_error_message("Memory for player is not allocated.", NULL);
 	player->name = save_name(fd);
 	player->size_of_code = save_size_of_code(fd);
 	player->comment = save_comment(fd);

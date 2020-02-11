@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:12:27 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/04 15:00:23 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/11 20:25:13 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,12 @@ static void	check_file(char *name_file)
 	int	fd;
 
 	if (ft_strcmp(ft_strrchr(name_file, '.'), ".cor"))
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nWrong type of file.\n", 21);
-		write(1, name_file, ft_strlen(name_file));
-		ft_print_usage_and_exit();
-	}
+		ft_print_usage_and_exit("Wrong type of file.");
 	fd = open(name_file, O_RDONLY);
 	if (fd < 0)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nCan't open file, check filename, please.\n", 42);
-		ft_print_usage_and_exit();
-	}
+		ft_print_usage_and_exit("Can't open file, check filename, please.");
 	if (close(fd) != 0)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nCan't close file.\n", 19);
-		write(1, "\x1b[0m", 4);
-		exit(2);
-	}
+		ft_print_error_message("Can't close file : ", name_file);
 }
 
 static int	ft_isnumber(char *str, int var, int *num)
@@ -56,11 +42,7 @@ static int	ft_isnumber(char *str, int var, int *num)
 	{
 		n = ft_atoi(str);
 		if (n < 1 || n > MAX_PLAYERS || (*num >> n & 1))
-		{
-			write(1, "\x1b[35m", 6);
-			write(1, "\nWrong champion's id.\n", 22);
-			ft_print_usage_and_exit();
-		}
+			ft_print_usage_and_exit("Wrong champion's id.");
 		*num = *num | (1 << n);
 	}
 	return (1);
@@ -74,7 +56,7 @@ static void	check_arguments(int *types, char **av, int ac, int n)
 	if ((ac < 4 + i && types[i] != TYPE_FILE) ||
 		(i > 0 && types[i] == TYPE_OPT_DUMP) ||
 		(types[i] == TYPE_OPT_DUMP && types[i + 1] != TYPE_NUMBER))
-		ft_print_usage_and_exit();
+		ft_print_usage_and_exit(NULL);
 	if (types[i] == TYPE_OPT_DUMP)
 		i++;
 	while (++i < ac)
@@ -85,11 +67,7 @@ static void	check_arguments(int *types, char **av, int ac, int n)
 		{
 			if (types[i] != TYPE_NUMBER
 				|| !ft_isnumber(av[i + 1], 1, &n) || types[i + 1] != TYPE_FILE)
-			{
-				write(1, "\x1b[35m", 5);
-				write(1, "\nWrong option input.\n", 21);
-				ft_print_usage_and_exit();
-			}
+				ft_print_usage_and_exit("Wrong option input.");
 		}
 	}
 }
@@ -118,7 +96,7 @@ void		verification_of_incoming_data(int ac, char **av, t_game *game)
 
 	i = 0;
 	if (ac == 1)
-		ft_print_usage_and_exit();
+		ft_print_usage_and_exit(NULL);
 	if (!ft_strcmp(av[1], "-v"))
 	{
 		i++;

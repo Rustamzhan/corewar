@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 14:07:11 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/04 14:54:56 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/11 18:14:51 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void		dump_field(unsigned char *field)
 	int		i;
 	int		j;
 	char	*hex;
-	char	dst[12928];
+	char	dst[14000];
 
 	i = 0;
 	j = 0;
 	hex = "0123456789abcdef";
 	while (i < MEM_SIZE)
 	{
-		if (i % LINE_LENGTH == 0)
+		if (i % LINE_LENGTH_DUMP == 0)
 		{
 			print_address(dst, j, i);
 			j += 9;
@@ -48,7 +48,7 @@ void		dump_field(unsigned char *field)
 		dst[j++] = hex[(field[i] >> 4) & 0xf];
 		dst[j++] = hex[field[i] & 0xf];
 		dst[j++] = ' ';
-		if (i % LINE_LENGTH == LINE_LENGTH - 1)
+		if (i % LINE_LENGTH_DUMP == LINE_LENGTH_DUMP - 1)
 			dst[j++] = '\n';
 		i++;
 	}

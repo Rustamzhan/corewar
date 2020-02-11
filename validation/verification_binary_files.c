@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 19:21:05 by astanton          #+#    #+#             */
-/*   Updated: 2020/01/30 22:05:33 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/11 20:30:32 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ static void	check_null(int fd, char *file)
 	buff[ret] = '\0';
 	check = (unsigned int)(*buff);
 	if (check)
-		ft_print_message_wrong_null_marker(file);
+		ft_print_error_message("Wrong binary format, NULL marker is missing \
+or in the wrong place in file : ", file);
 	lseek(fd, sizeof(unsigned int) + COMMENT_LENGTH, SEEK_CUR);
 	ret = read(fd, buff, sizeof(unsigned int));
 	check = (unsigned int)(*buff);
 	if (check)
-		ft_print_message_wrong_null_marker(file);
+		ft_print_error_message("Wrong binary format, NULL marker is missing \
+or in the wrong place in file : ", file);
 }
 
 static void	check_magic(int fd, char *file)
@@ -46,15 +48,8 @@ static void	check_magic(int fd, char *file)
 	cur_res = (cur_res & BYTE_1) << 24 | (cur_res & BYTE_2) << 8
 				| (cur_res & BYTE_3) >> 8 | (cur_res & BYTE_4) >> 24;
 	if (cur_res != COREWAR_EXEC_MAGIC)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nMagic_number is different from COREWAR_EXEC_MAGIC \
-in file : ", 61);
-		write(1, file, ft_strlen(file));
-		write(1, "\x1b[0m", 4);
-		write(1, "\n", 1);
-		exit(3);
-	}
+		ft_print_error_message("Magic_number is different from \
+COREWAR_EXEC_MAGIC in file : ", file);
 }
 
 static void	check_exec_code(int fd, char *file)
@@ -77,7 +72,7 @@ static void	check_exec_code(int fd, char *file)
 	while ((ret = read(fd, buff, sizeof(unsigned int) + 1)))
 		tmp += ret;
 	if (tmp != size || size > (CHAMP_MAX_SIZE))
-		ft_print_message_wrong_exec_size(file);
+		ft_print_error_message("Wrong size of exec code in file :", file);
 }
 
 static void	check_binary(char *file)
@@ -85,26 +80,12 @@ static void	check_binary(char *file)
 	int	fd;
 
 	if ((fd = open(file, O_RDONLY)) < 0)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nCan't open next file : ", 24);
-		write(1, file, ft_strlen(file));
-		write(1, "\n", 1);
-		write(1, "\x1b[0m", 4);
-		exit(2);
-	}
+		ft_print_error_message("Can't open next file : ", file);
 	check_magic(fd, file);
 	check_null(fd, file);
 	check_exec_code(fd, file);
 	if (close(fd) != 0)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nCan't close file : ", 20);
-		write(1, file, ft_strlen(file));
-		write(1, "\n", 1);
-		write(1, "\x1b[0m", 4);
-		exit(2);
-	}
+		ft_print_error_message("Can't close next file : ", file);
 }
 
 void		check_binary_files(int *arg_types, char **av, int ac, int files)
@@ -112,11 +93,7 @@ void		check_binary_files(int *arg_types, char **av, int ac, int files)
 	int i;
 
 	if (files > MAX_PLAYERS)
-	{
-		write(1, "\x1b[35m", 5);
-		write(1, "\nToo many champions.\n", 21);
-		ft_print_usage_and_exit();
-	}
+		ft_print_usage_and_exit("Too many champions.");
 	i = 0;
 	while (++i < ac)
 		if (arg_types[i - 1] == TYPE_FILE)

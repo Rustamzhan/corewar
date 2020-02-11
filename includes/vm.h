@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:35:00 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/07 05:09:40 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/11 20:04:42 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@
 # include "libft.h"
 # include "op.h"
 
-# define BYTE_1			0xff
-# define BYTE_2			0xff00
-# define BYTE_3			0xff0000
-# define BYTE_4			0xff000000
-# define LINE_LENGTH	64
-# define TYPE_OPT_N		1
-# define TYPE_OPT_DUMP	2
-# define TYPE_FILE		3
-# define TYPE_NUMBER	4
+# define BYTE_1				0xff
+# define BYTE_2				0xff00
+# define BYTE_3				0xff0000
+# define BYTE_4				0xff000000
+# define LINE_LENGTH		64
+# define LINE_LENGTH_DUMP	32
+# define TYPE_OPT_N			1
+# define TYPE_OPT_DUMP		2
+# define TYPE_FILE			3
+# define TYPE_NUMBER		4
 
 typedef struct	s_keyboard
 {
@@ -152,10 +153,9 @@ void			ft_xor(t_game *game, t_carriage *carriage);
 void			zjmp(t_game *game, t_carriage *carriage);
 void			debug(void *arg, void *arg2, int var);
 void			verification_of_incoming_data(int ac, char **av, t_game *game);
-void			ft_print_usage_and_exit();
+void			ft_print_usage_and_exit(char *file);
 void			check_binary_files(int *types, char **av, int ac, int files);
-void			ft_print_message_wrong_exec_size(char *file);
-void			ft_print_message_wrong_null_marker(char *file);
+void			ft_print_error_message(char *msg, char *file);
 void			load_exec_code_in_battle_field(t_game game, t_player *players);
 void			introducing_players(t_player *players);
 void			start_game(t_game *game);
