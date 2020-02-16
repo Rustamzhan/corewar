@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:13:55 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/11 20:18:24 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/16 16:36:19 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ champion1.cor] ...\n\n  -v		   : visualization mode\n  \
 
 void	ft_print_error_message(char *msg, char *file)
 {
-	write(2, "\n\x1b[35m", 5);
+	write(2, "\n\x1b[35m", 6);
 	write(2, msg, ft_strlen(msg));
 	if (file)
 		write(2, file, ft_strlen(file));
-	write(2, "\n\x1b[0m", 6);
+	write(2, "\n\x1b[0m", 5);
 	exit(1);
 }

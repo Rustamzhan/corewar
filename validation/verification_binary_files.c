@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 19:21:05 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/11 20:30:32 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/16 17:41:39 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	check_exec_code(int fd, char *file)
 	while ((ret = read(fd, buff, sizeof(unsigned int) + 1)))
 		tmp += ret;
 	if (tmp != size || size > (CHAMP_MAX_SIZE))
-		ft_print_error_message("Wrong size of exec code in file :", file);
+		ft_print_error_message("Wrong size of exec code in file : ", file);
 }
 
 static void	check_binary(char *file)
