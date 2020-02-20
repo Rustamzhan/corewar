@@ -6,7 +6,7 @@
 #    By: astanton <astanton@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/03 16:12:01 by astanton          #+#    #+#              #
-#    Updated: 2020/02/07 04:54:48 by astanton         ###   ########.fr        #
+#    Updated: 2020/02/20 19:22:38 by astanton         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,7 +105,7 @@ lib:
 	make -C libft
 
 $(NAME): $(OBJ) ./libft/libft.a
-	gcc -o $(NAME) $(OBJ) -L ./libft -lft -lncurses
+	gcc -o $(NAME) $(OBJ) -L ./libft -lft -lncurses -lpthread
 
 $(OBJ): %.o: %.c ./includes/vm.h ./includes/op.h
 	gcc $(FLAG) -c -I $(HDR) -I $(HDR1) $< -o $@

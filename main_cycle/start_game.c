@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 18:52:50 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/07 04:53:00 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:50:30 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static void	thread_func(t_keyboard *keyboard)
 			pthread_exit(0);
 		}
 		else if (c == '+')
-			keyboard->speed += (keyboard->speed < 1000) ? 10 : 0;
+			keyboard->speed -= (keyboard->speed >= 50000) ? 50000 : 0;
 		else if (c == '-')
-			keyboard->speed -= (keyboard->speed > 10) ? 10 : 0;
+			keyboard->speed += (keyboard->speed < 1000000) ? 50000 : 0;
 	}
 }
 
@@ -74,7 +74,7 @@ static void	start_game_with_visual(t_game *game)
 	keyboard = (t_keyboard *)ft_malloc(sizeof(t_keyboard));
 	keyboard->pause = 1;
 	keyboard->quit = 0;
-	keyboard->speed = 10;
+	keyboard->speed = 300000;
 	new_thread = (pthread_t *)ft_malloc(sizeof(pthread_t));
 	pthread_create(new_thread, NULL, (void *)&thread_func, keyboard);
 	start_game_cycle(game, keyboard);

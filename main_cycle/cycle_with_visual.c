@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:57:16 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/07 04:52:04 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:38:43 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	print_field(t_game *game, t_keyboard *keyboard)
 		tmp = tmp->next;
 	}
 	refresh();
-	usleep(1000000 / keyboard->speed);
+	usleep(keyboard->speed);
 }
 
 static void	print_box(void)
