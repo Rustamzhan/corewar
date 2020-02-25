@@ -6,7 +6,7 @@
 /*   By: astanton <astanton@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 11:35:00 by astanton          #+#    #+#             */
-/*   Updated: 2020/02/22 06:39:02 by astanton         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:16:26 by astanton         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct	s_carriage
 
 typedef struct	s_game
 {
+	int					debug;
 	int					aff;
 	int					dump;
 	int					dump_cycles;
